@@ -41,3 +41,114 @@ class Solution:
 			return negs 
 	
 		return pos 
+
+
+----------------TIEMPO LINEAL con indices ----------------------
+
+
+
+https://techiedelight.com/practice/?problem=MaximumProductPair
+
+/*
+
+Given an integer array, find a pair with the maximum product in it.
+
+Each input can have multiple solutions. The output should match with either one of them.
+
+Input : [-10, -3, 5, 6, -2]
+Output: (-10, -3) or (-3, -10) or (5, 6) or (6, 5)
+
+Input : [-4, 3, 2, 7, -5]
+Output: (3, 7) or (7, 3)
+
+If no pair exists, the solution should return the pair (-1, -1).
+
+Input : [1]
+Output: (-1, -1)
+
+*/
+
+class Solution
+{
+public:
+
+	pair<int, int> findPair(vector<int> nums)
+	{
+		int n = nums.size();
+		if (nums.size() < 2)
+		{
+			return make_pair(-1, -1);
+		}
+
+		if (nums.size() == 2)
+		{
+			return make_pair(nums[0], nums[1]);
+		}
+
+		//max1 3
+		//max2 2
+		//min2 1
+		//min1 0
+
+		// int max1 = arr[0], max2 = INT_MIN;
+		// int min1 = arr[0], min2 = INT_MAX;
+
+		int k = 0;
+		int ind_max1 = 0;
+
+		k++;
+
+		int ind_max2 = 0;
+
+		if (k < nums.size())
+		{
+			ind_max2 = k;
+		}
+
+		k++;
+		int ind_min1 = 0;
+
+		if (k < nums.size())
+		{
+			ind_min1 = k;
+		}
+
+		k++;
+		int ind_min2 = 0;
+		if (k < nums.size())
+		{
+			ind_min2 = k;
+		}
+
+		for (int i = 1; i < n; i++)
+		{
+			if (nums[i] > nums[ind_max1])
+			{
+				ind_max2 = ind_max1;
+				ind_max1 = i;
+			}
+			else if (nums[i] > nums[ind_max2])
+			{
+				ind_max2 = i;
+			}
+
+			if (nums[i] < nums[ind_min1])
+			{
+				ind_min2 = ind_min1;
+				ind_min1 = i;
+			}
+			else if (nums[i] < nums[ind_min2])
+			{
+				ind_min2 = i;
+			}
+		}
+
+		if (nums[ind_min1] *nums[ind_min2] > nums[ind_max2] *nums[ind_max1])
+		{
+			return make_pair(nums[ind_min1], nums[ind_min2]);
+		}
+
+		return make_pair(nums[ind_max2], nums[ind_max1]);
+
+	}
+};
