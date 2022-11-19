@@ -1,0 +1,76 @@
+
+https://techiedelight.com/practice/?problem=LongestPalindromicSubstring
+
+/*
+
+Given a string, find the maximum length contiguous substring of it that is also a palindrome.
+
+Input: "bananas"
+Output: "anana"
+
+Input: "abdcbcdbdcbbc"
+Output: "bdcbcdb"
+
+The longest palindromic substring is not guaranteed to be unique. If multiple longest palindromic substring exists, the solution should return the one which appear first in the string.
+
+Input: "abracadabra"
+Output: "aca"
+Explanation: There is no palindromic substring in a string "abracadabra" with a length greater than 3. There are two palindromic substrings with length 3, namely, "aca" and "ada". The solution returns "aca" as it appears before "ada" in the string.
+
+Input: "dcabc"
+Output: "d"
+
+*/
+
+class Solution
+{
+public:
+	string longestPalindromicSubstring(string s)
+	{
+		string ss;
+		ss.push_back('|');
+
+		for (int i = 0; i < s.size(); i++)
+		{
+			ss.push_back(s[i]);
+			ss.push_back('|');
+		}
+
+		string ans = "";
+		int max_len = 0;
+		int min = 0, max;
+
+		for (int i = 0; i < ss.size(); i++)
+		{
+			int j = i;
+			int k = i;
+
+			while (j >= 0 && k < ss.size() && ss[j] == ss[k])
+			{
+				j--;
+				k++;
+			}
+
+			if (k - j + 1 > max_len)
+			{
+				max_len = k - j + 1;
+				min = j + 1;
+				max = k - 1;
+			}
+		}
+
+		string cc = ss.substr(min, max - min);
+
+		string res = "";
+		for (int i = 0; i < cc.size(); i++)
+		{
+			if (cc[i] != '|')
+			{
+				res.push_back(cc[i]);
+			}
+		}
+
+		return res;
+	}
+};
+
