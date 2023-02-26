@@ -1,0 +1,45 @@
+package findDuplicateElement;
+
+import java.util.*;
+
+
+public class Principal {
+	/*
+
+	Given an integer array, find k'th largest element in the array where k is a positive integer less than or equal to the length of array.
+
+	Input : [7, 4, 6, 3, 9, 1], k = 2
+	Output: 7
+	Explanation: The 2nd largest array element is 7
+
+	Input : [1, 5, 2, 2, 2, 5, 5, 4], k = 4
+	Output: 4
+	Explanation: The 4th largest array element is 4
+
+	*/
+
+	public static int findKthLargest(List<Integer> nums, int k)
+	{
+
+		Collections.sort(nums);
+		
+		return nums.get(nums.size() - k );
+		
+	}
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] a = {7, 4, 6, 3, 9, 1};
+		
+		List<Integer> lista = new ArrayList<>();
+		for(int i = 0; i < a.length; i++) lista.add(a[i]);
+		
+		int k = 2;
+				//Output: 7
+		
+		System.out.println(findKthLargest(lista,2));
+		
+	}
+
+}
